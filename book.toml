@@ -1,0 +1,6 @@
+[book]
+authors = ["ermvrs"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Rosettanet Documentation"
