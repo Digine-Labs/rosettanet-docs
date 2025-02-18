@@ -11,3 +11,9 @@ Rosettanet is a middleware architecture that reads and executes Starknet transac
 - Existing Ethereum toolings like Web3js and ethers can be used on Starknet.
 - Allows sending & executing transactions with Ethereum signatures.
 - Seamless migration for users from Ethereum or any other EVM chain.
+
+## Project structure and related repositories
+
+- Rosettanet: Rosettanet node written in Typescript
+- Rosettanet Accounts: Starknet account smart contracts that work with Ethereum-signed transactions.
+- Rosettanetjs: Javascript library that includes functions to integrate Rosettanet.
