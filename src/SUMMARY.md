@@ -6,6 +6,6 @@
 
 ## Getting Started
 
-- [Getting Started](./ch01-getting-started.md)
-  - [Installation]()
-  - [Configuration]()
+- [For Users](./users/users.md)
+  - [Connecting to Rosettanet](./users/connect.md)
+  - [Configuration](./users/config.md)
