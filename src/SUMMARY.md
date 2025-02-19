@@ -8,4 +8,4 @@
 
 - [For Users](./users/users.md)
   - [Connecting to Rosettanet](./users/connect.md)
-  - [Configuration](./users/config.md)
+  - [First step](./users/first.md)
