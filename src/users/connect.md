@@ -20,3 +20,7 @@ Public endpoints: TBD
 Fees are always paid as STRKs currently. You have to deposit STRKs to your new Wallet in order to broadcast transactions through your account. Please follow next page for more details.
 
 ### Do not send tokens directly to your Ethereum address from CEXes.
+
+## Notice
+
+Rosettanet account contracts are not audited and still under development. DYOR.

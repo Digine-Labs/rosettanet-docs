@@ -16,4 +16,9 @@ Rosettanet is a middleware architecture that reads and executes Starknet transac
 
 - [Rosettanet](https://github.com/Digine-Labs/rosettanet): Rosettanet node written in Typescript
 - [Rosettanet Accounts](https://github.com/Digine-Labs/rosettacontracts): Starknet account smart contracts that work with Ethereum-signed transactions.
-- [Rosettanetjs](https://github.com/Digine-Labs/rosettanetjs): Javascript library that includes functions to integrate Rosettanet.
+- [Rosettanetjs](https://github.com/Digine-Labs/rosettanetjs): Javascript library that includes functions to integrate Rosettanet to frontend.
+
+## Community Channels
+
+- [Twitter](https://x.com/rosettanetstark)
+- [Telegram](https://t.me/rosettanet)
