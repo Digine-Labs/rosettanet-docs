@@ -1,6 +1,6 @@
 # Summary
 
-- [Introduction](./ch00-intro.md)
+[Introduction](./ch00-intro.md)
 
 # Rosettanet
 
