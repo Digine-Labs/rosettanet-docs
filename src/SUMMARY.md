@@ -11,6 +11,7 @@
   - [First step](./users/first.md)
 - [For Developers](./dev/dev.md)
   - [Integration of Rosettanet into Starknet DApps](./dev/integrate.md)
+  - [Using Ethereum Based Toolings](./dev/ethers.md)
 
 ## Project Structure
 
