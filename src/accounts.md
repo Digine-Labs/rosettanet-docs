@@ -34,7 +34,3 @@ Once you have your Starknet address, you can safely transfer funds to it from an
 If you have another wallet that already holds a Rosettanet account, you can also transfer funds using your **Ethereum address** directly. For example, open MetaMask, click the “Send” button, and paste your Ethereum wallet address into the "To" field.
 
 > Note: This method only works if both wallets are connected to the Rosettanet network and the accounts have already been deployed.
-
-## What happens if I mistakenly send funds to my Rosettanet account from any CEX or another Starknet account?
-
-## How can I learn my actual Starknet account address?
