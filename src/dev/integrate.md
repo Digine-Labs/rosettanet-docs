@@ -37,7 +37,7 @@ const userWalletAccount = await (typeof selectedAccount.sendAsync ===
 
 ## Sending Requests
 
-Once connected, the DApp can send transactions and requests through the user's wallet. Use the `execute()` method from `starknet.js` to send transactions. `RosettanetAccount` supports nearly all `WalletAccount` methods, except for `declare()` and `deploy()`.
+Once connected, the DApp can send transactions and requests through the user's wallet. Use the `execute()` method from `starknet.js` to send transactions. `RosettanetAccount` supports nearly all `WalletAccount` methods, except for `declare()` and `deploy()`. You can check what is available for `WalletAccount` from `starknet.js` [docs](https://starknetjs.com/docs/guides/walletAccount).
 
 ```jsx
 const response = await userWalletAccount.execute(StarknetCalldata);
