@@ -10,14 +10,18 @@
   - [Connecting to Rosettanet](./users/connect.md)
   - [First step](./users/first.md)
 - [For Developers](./dev/dev.md)
-  - [Integration of Rosettanet into Starknet DApps](./dev/integrate.md)
+  - [Integration of Rosettanet into Starknet dApps](./dev/integrate.md)
   - [Using Ethereum Based Toolings](./dev/ethers.md)
+  - [Using Starknet features](./dev/features.md)
 
 ## Project Structure
 
 - [General Overview](./overview.md)
 - [Rosettanet Node](./node.md)
+  - [Methods](./methods.md)
 - [Account Contracts](./accounts.md)
+  - [Interface](./account-interface.md)
+  - [Methods](./account-methods.md)
 - [Rosettanetjs](./rosettanetjs.md)
 - [Contract Addresses](./contract-addresses.md)
 - [Security](./security.md)
