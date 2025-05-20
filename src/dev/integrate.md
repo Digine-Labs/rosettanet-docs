@@ -40,7 +40,23 @@ const userWalletAccount = await (typeof selectedAccount.sendAsync ===
 Once connected, the DApp can send transactions and requests through the user's wallet. Use the `execute()` method from `starknet.js` to send transactions. `RosettanetAccount` supports nearly all `WalletAccount` methods, except for `declare()` and `deploy()`. You can check what is available for `WalletAccount` from `starknet.js` [docs](https://starknetjs.com/docs/guides/walletAccount).
 
 ```jsx
-const response = await userWalletAccount.execute(StarknetCalldata);
+const starknetCalldata = [
+  {
+    contractAddress:'contractAddress',
+    entrypoint: 'approve',
+    // You can use entrypoint as function name or entry point selector hash
+    calldata: "calldata",
+  },
+  {
+    contractAddress:'contractAddress',
+    // You can use entrypoint as function name or entry point selector hash
+    entrypoint: '0x25356d5707a314336daf6636019fcd414e2403787a6dfb3eacc0c8450b341c8',
+    calldata: "calldata",
+  },
+];
+
+
+const response = await userWalletAccount.execute(starknetCalldata);
 ```
 
 If your DApp needs the wallet address, `userWalletAccount.address` will return the address. For EVM wallets, this will be an Ethereum address. You can call a helper contract to obtain the corresponding Starknet address from the Ethereum address:

@@ -108,3 +108,29 @@ const tx = {
 };
 
 const txResponse = await signer.sendTransaction(tx);
+```
+
+If you are sending transactions with data, you need to enter `to` field in transaction as `0x0000000000000000000000004645415455524553`. This is a contract in Ethereum passes data to Rosettanet Node. Data field must be encoded with `prepareMulticallCalldata` function from `rosettanetjs`.
+
+```js
+const provider = new ethers.BrowserProvider(window.ethereum);
+
+const signer = await provider.getSigner();
+
+const calldata = [
+    {
+        contract_address:'contract_address',
+        entry_point:'entry_point',
+        calldata: 'calldata',
+    },
+];
+
+const tx = {
+    to:"0x0000000000000000000000004645415455524553",
+    value:"0x0",
+    data:prepareMulticallCalldata(calldata),
+    chainId:1381192787 // Rosettanet Sepolia Chain Id
+};
+
+const txResponse = await signer.sendTransaction(tx);
+```
