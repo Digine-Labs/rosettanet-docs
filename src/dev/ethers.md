@@ -1,4 +1,4 @@
-## Ethers
+# Ethers
 
 Using `ethers.js` with Rosettanet is straightforward, it works just like it does on Ethereum, with only a few small adjustments. Below is a simple example of how to read data from a contract using `ethers.Contract` as you would in any typical Ethereum DApp:
 
@@ -11,8 +11,8 @@ const provider = new ethers.JsonRpcProvider("Rosettanet-RPC-URL");
 
 // A minimal ERC-20 ABI for demonstration purposes
 const ERC20_ABI = [
-  'function balanceOf(address owner) view returns (uint256)',
-  'function decimals() view returns (uint8)'
+    'function balanceOf(address owner) view returns (uint256)',
+    'function decimals() view returns (uint8)'
 ];
 
 // Instantiate the token contract
@@ -27,7 +27,7 @@ const decimals = await tokenContract.decimals();
 
 This code behaves the same way as it would on Ethereum. The Rosettanet Node takes care of translating the Ethereum-compatible calls to Starknet under the hood. No custom provider wrappers or contract interaction logic is required just plug in your Rosettanet RPC URL and use `ethers` as usual.
 
-### Sending Transactions With `Wallet` Class
+## Sending Transactions With `Wallet` Class
 
 When using Rosettanet with `ethers.js`, the only modification required is in how you send transactions using the `Wallet` class.
 
@@ -89,11 +89,11 @@ const strkContract = new ethers.Contract(STRKToken, ERC20_ABI, provider);
 const balance = await strkContract.balanceOf(toAddress);
 ```
 
-### Sending Transactions With Browser Wallet (Metamask)
+## Sending Transactions With Browser Wallet (Metamask)
 
 You can send transactions through Browser Wallet using `ethers.js` with little to no modification. Here's a basic example to get started.
 
-This time, we'll use `ethers.BrowserProvider` as the `provider`, since we're interacting with a wallet injected into the browser (like MetaMask). Unlike with `wallet.sendTransaction()`, there's no need for any workaround here you can directly use `signer.sendTransaction()` as expected.
+This time, we'll use `ethers.BrowserProvider` as the `provider`, since we're interacting with a wallet injected into the browser (like MetaMask). Unlike with `wallet.sendTransaction()`, there's no need for any workaround here you can directly use `signer.sendTransaction()`.
 
 ```js
 const provider = new ethers.BrowserProvider(window.ethereum);
@@ -108,3 +108,91 @@ const tx = {
 };
 
 const txResponse = await signer.sendTransaction(tx);
+```
+
+### Transactions with `data`
+
+If your transaction includes a `data` payload, you first need to register your smart contract with the Rosettanet registry. You can do this by calling the `register_contract` function on the [Rosettanet Sepolia smart contract](https://sepolia.voyager.online/contract/0x065a6238502254a31072c53bedf5046cbb626ce49cd49ba20e206b35d5aed0ad#writeContract).
+
+After registration, you can retrieve the corresponding Ethereum-compatible address of your Starknet contract using the `get_ethereum_address` function.
+
+When constructing your transaction:
+
+* The `to` field should be set to the Ethereum address returned from the registry.
+
+* The `data` field must be manually encoded.
+
+To encode the `data` correctly, create a new instance of the `ethers.Interface` class using your contract’s ABI. This allows you to encode function calls as shown below (using a minimal ERC-20 ABI for demonstration):
+
+```js
+const provider = new ethers.BrowserProvider(window.ethereum);
+
+const signer = await provider.getSigner();
+
+const ERC20_ABI = [
+    'function balanceOf(address owner) view returns (uint256)',
+    'function decimals() view returns (uint8)',
+    'function transfer(address to, uint256 amount) public returns (bool)'
+];
+
+const iface = new ethers.Interface(ERC20_ABI);
+
+const calldata = iface.encodeFunctionData('transfer', [
+    'transfer-to-address',
+    ethers.parseUnits('1', 18)
+]);
+
+const tx = {
+    to:"ethereum address from get_ethereum_address()",
+    data: calldata,
+    chainId:1381192787 // Rosettanet Sepolia Chain Id
+};
+
+const txResponse = await signer.sendTransaction(tx);
+```
+
+### Using `multicall`
+
+If you want to use `multicall` feature from starknet, you need to pass `to` field as `0x0000000000000000000000004645415455524553`. Below is an example of how to transfer ERC-20 tokens to two different accounts using a `multicall`:
+
+ ```js
+const provider = new ethers.BrowserProvider(window.ethereum);
+
+const signer = await provider.getSigner();
+
+const MULTICALL_ABI = [
+    'function multicall((uint256,uint256,uint256[])[])'
+];
+
+const iface = new ethers.Interface(MULTICALL_ABI);
+
+const receiver1SnAddress = await precalculateStarknetAddress('reciever-1-eth-address');
+const receiver2SnAddress = await precalculateStarknetAddress('reciever-2-eth-address');
+
+const data = iface.encodeFunctionData('multicall', [[ 
+    [
+        ERC20_TOKEN_ADDRESS,
+        '0x0083afd3f4caedc6eebf44246fe54e38c95e3179a5ec9ea81740eca5b482d12e', // transfer function entrypoint
+        [receiver1SnAddress, 
+        '1000', // amount.low
+        '0' // amount.high
+        ]
+    ],
+    [
+        ERC20_TOKEN_ADDRESS,
+        '0x0083afd3f4caedc6eebf44246fe54e38c95e3179a5ec9ea81740eca5b482d12e', // transfer function entrypoint
+        [receiver2SnAddress, 
+        '2000', // amount.low
+        '0'// amount.high
+        ]
+    ]
+]]);
+
+const tx = {
+    to:"0x0000000000000000000000004645415455524553",
+    data: calldata,
+    chainId:1381192787 // Rosettanet Sepolia Chain Id
+};
+
+const txResponse = await signer.sendTransaction(tx);
+```
