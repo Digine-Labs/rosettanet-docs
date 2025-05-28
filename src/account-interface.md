@@ -1,4 +1,4 @@
-# IRosettanetAccount
+# IRosettaAccount
 
 ```rust
 pub struct RosettanetCall {
